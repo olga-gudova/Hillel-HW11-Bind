@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bind</title>
+</head>
+<body>
+    <script>
+
+        // let boundFunc = func.bind(context);
+
+        const bindContext = function(context, ... args) {
+            if (typeof context === 'object') {
+                this = context;
+                ...args = ...args;
+            }            
+        };
+
+        const testObject = {
+            a: 47,
+            b: 58,
+        }
+
+        window.a = 'global';
+
+        function foo() {
+            return this.a;
+        }
+
+        console.log(foo());
+        console.log(foo.bindContext(testObject));
+
+    </script>
+</body>
+</html>

@@ -8,28 +8,24 @@
 <body>
     <script>
 
-        // let boundFunc = func.bind(context);
-
-        const bindContext = function(context, ... args) {
-            if (typeof context === 'object') {
-                this = context;
-                ...args = ...args;
-            }            
+        const boundFunc = function(func, context, ...args) {
+            if (typeof context === 'object' && typeof func === 'function') {
+                return func.call(context, ...args);
+            }
         };
 
         const testObject = {
-            a: 47,
-            b: 58,
+            a: 7,
         }
 
-        window.a = 'global';
+        window.a = 1000;
 
-        function foo() {
-            return this.a;
+        function bar(m, n, o, p) {
+            const res = o + (m * this.a - n) + p;
+            return res;
         }
 
-        console.log(foo());
-        console.log(foo.bindContext(testObject));
+        console.log(boundFunc(bar, testObject, 5, 20, 'you\'ve got ', ' pcs'));
 
     </script>
 </body>
